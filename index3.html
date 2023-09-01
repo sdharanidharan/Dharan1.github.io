@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+function Book(title, author, yearPublished, readStatus) {
+  this.title = title;
+  this.author = author;
+  this.yearPublished = yearPublished;
+  this.readStatus = readStatus;
+  this.getSummary = function() {
+    return this.title + " by " + this.author + ", published in " + this.yearPublished + ", read status: " + this.readStatus;
+  };
+  this.toggleReadStatus = function() {
+    this.readStatus = !this.readStatus;
+  };
+}
+var library = [];
+function addBook(book) {
+  library.push(book);
+}
+function removeLastBook() {
+  library.pop();
+}
+function addBookToFront(book) {
+  library.unshift(book);
+}
+function removeFirstBook() {
+  library.shift();
+}
+function getAllTitles() {
+  return library.map(function(book) {
+    return book.title;
+  });
+}
+function getBooksByAuthor(author) {
+  return library.filter(function(book) {
+    return book.author === author;
+  });
+}
+function getTotalBooksPublishedBefore(year) {
+  return library.filter(function(book) {
+    return book.yearPublished < year;
+  }).reduce(function(count, book) {
+    return count + 1;
+  }, 0);
+}
+function removeBookByTitle(title) {
+  var index = library.findIndex(function(book) {
+    return book.title === title;
+  });
+  if (index !== -1) {
+    library.splice(index, 1);
+  }
+}
+function getBooksByReadStatus(status) {
+  return library.filter(function(book) {
+    return book.readStatus === status;
+  });
+}
+function getSubLibrary(start, end) {
+  return library.slice(start, end);
+}
+var book1 = new Book("The solo leveling ", "Dharan", 2022, false);
+var book2 = new Book("the beginning after the end", "TurtleMe", 2000, true);
+var book3 = new Book("harry potter", "J. K. Rowling", 1949, true);
+addBook(book1);
+addBook(book2);
+addBook(book3);
+console.table(book1);
+console.log(book2);  
+console.log(book3);
+console.log(getAllTitles());
+console.log(getTotalBooksPublishedBefore(1950));
+removeBookByTitle("1984");
+console.log(getAllTitles());
+    </script>
+</body>
+</html
